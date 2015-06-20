@@ -39,22 +39,12 @@ create view win_count as
 
 -- view 3: player standings
 create view standings as
-	select players.id, players.name, win_count.count as wins, match_count.count as match
+	select players.id, players.name, coalesce(win_count.count,0) as wins, match_count.count as match
 	from players 
 	left join win_count on players.id = win_count.winner
-	left join match_count on players.id = match_count.id;
+	left join match_count on players.id = match_count.id
+	order by wins desc;
 
-insert into players (name) values ('Danny Edwards');
-insert into players (name) values ('TOM PURTZER');
-insert into players (name) values ('KEN GREEN');
-insert into players (name) values ('STEVE PATE');
-
-select * from players;
-
-insert into matches values (1,1,2,1);
-insert into matches values (2,3,4,4);
-insert into matches values (3,1,4,4);
-insert into matches values (4,2,3,2);
 
 
 

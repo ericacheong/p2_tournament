@@ -82,20 +82,8 @@ def playerStandings():
             match = 0
         i = id, name, win, match
         f_result.append(i)
-    """
-    f_result = []
-    j = ()
-    k = ()
-    for i in result:
-        id, name, win, match = i
-        if win == None:
-            j = id, name, 0, match
-        id, name, win, match = j
-        if match == None:
-            k = id, name, win, 0 
-        f_result.append(k)
-    """
-    print f_result
+
+    #print f_result
     return f_result
 
 
@@ -108,7 +96,7 @@ def reportMatch(winner, loser):
     """
     conn = connect()
     c = conn.cursor()
-    c.execute("insert into matches values (%s, %s, %s)", (winner, loser, winner))
+    c.execute("insert into matches (p1, p2, winner) values (%s, %s, %s)", (winner, loser, winner))
     conn.commit()
     conn.close()
  
@@ -128,4 +116,22 @@ def swissPairings():
         name2: the second player's name
     """
 
+    conn = connect()
+    c = conn.cursor()
+    c.execute("select * from standings;")
+    standings = c.fetchall()
+    conn.close()
 
+    #print standings
+    pair = []
+    swisspair = []
+    for p in standings:
+        (i, n, w, m) = p
+        if len(pair) < 4:
+            pair += i, n
+        else:
+            swisspair.append(pair)
+            pair = i,n
+
+    swisspair.append(pair)
+    return swisspair
