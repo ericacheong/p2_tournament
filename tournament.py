@@ -135,6 +135,7 @@ def swissPairings():
     #print standings
     pair = []
     swisspair = []
+    #print standings
     for p in standings:
         (i, n, w, m) = p
         if len(pair) < 4:
@@ -143,5 +144,8 @@ def swissPairings():
             swisspair.append(pair)
             pair = i,n
 
+    # check if the final pair is odd or even
+    if len(pair) < 4:
+        pair += 999, 'bye'
     swisspair.append(pair)
     return swisspair
