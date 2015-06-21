@@ -83,11 +83,6 @@ def playerStandings():
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
-    # conn = connect()
-    # c = conn.cursor()
-    # c.execute("select * from standings order by wins;")
-    # result = c.fetchall()
-    # conn.close()
 
     result = dbquery("SELECT * FROM standings ORDER BY wins;")
 
@@ -136,16 +131,16 @@ def swissPairings():
     pair = []
     swisspair = []
     #print standings
-    for p in standings:
-        (i, n, w, m) = p
-        if len(pair) < 4:
-            pair += i, n
-        else:
-            swisspair.append(pair)
-            pair = i,n
+    if len(standings) % 2 == 0:
+        for p in standings:
+            (i, n, w, m) = p
+            if len(pair) < 4:
+                pair += i, n
+            else:
+                swisspair.append(pair)
+                pair = i,n
+        swisspair.append(pair)
+    else:
+        print "Number of players cannot be odd."
 
-    # check if the final pair is odd or even
-    if len(pair) < 4:
-        pair += 999, 'bye'
-    swisspair.append(pair)
     return swisspair

@@ -38,7 +38,8 @@ CREATE VIEW win_count AS
 
 -- view 3: player standings
 CREATE VIEW standings AS
-	SELECT players.id, players.name, coalesce(win_count.count,0) AS wins, match_count.count AS match
+	SELECT players.id, players.name, coalesce(win_count.count,0) AS wins, 
+		   coalesce(match_count.count,0) AS match
 	FROM players 
 	LEFT JOIN win_count ON players.id = win_count.winner
 	LEFT JOIN match_count ON players.id = match_count.id
