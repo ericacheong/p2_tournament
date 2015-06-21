@@ -3,6 +3,9 @@ Creator: Erica Cheong
 
 This program is created for the Udacity Full Stack Web Developer Nanodegree
 
+## Libraries
+* psycopg2
+
 ## Prerequisite
 1. Install postgresql
 
